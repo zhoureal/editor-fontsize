@@ -2,8 +2,6 @@
  *  this ia a new approach to set fontsize in editor, it uses the execCommand("insertHTML", false, html) in the document object,
  *  so it won't break the system undo manager (you can use ctrl+v), however, the selection will lost in this method,.
  */
-
-
 function setFontSize(size) {
     var randomId = new Date().getTime(),
         idFlag = true,
@@ -37,8 +35,8 @@ function setFontSize(size) {
         }
     }
     if (idFlag) { div.setAttribute("id", randomId); }
-    this.applyInlineStyle(div, "fontSize", sFontSize);
-    this.inheritStyle(div);
+    applyInlineStyle(div, "fontSize", size);
+    inheritStyle(div);
     document.execCommand("insertHTML", false, div.outerHTML);
     // 尝试恢复选区  手动恢复目前不能保证完全正确 
     var newRange = document.getSelection().getRangeAt(0);
@@ -80,34 +78,4 @@ function setFontSize(size) {
         //移除标记id
         idDom.removeAttribute("id");
     }
-}
-
-var applyInlineStyle = function (dom, name, val) {
-    dom.style[name] = val;
-    var elements = dom.querySelectorAll("*");
-    Array.prototype.slice.call(elements).forEach(function (element) {
-        element.style[name] = val;
-    })
-},
-var getNodeNum = function (dom) {
-    if (!dom) return 0;
-    var ret = 0;
-    for (var i = 0; i < dom.children.length; i++) {
-        if (dom.children[i].tagName.toLowerCase() !== 'br') {
-            ret++;
-        }
-    }
-    return ret;
-},
-var inheritStyle = function (dom) {
-    var styleArr = [];
-    // 跨节点情况样式继承浏览器会自动处理
-    if (!dom || this.getNodeNum(dom)) return;
-    // 手动继承字体 颜色 背景色 斜体 粗体 下划线 删除线 样式
-    dom.style.fontFamily = window.ue.queryCommandValue("fontfamily");
-    dom.style.fontWeight = this._editorDoc.queryCommandState("bold") ? "bold" : "normal";
-    dom.style.fontStyle = this._editorDoc.queryCommandState("italic") ? "italic" : "normal";
-    dom.style.background = window.ue.queryCommandValue("backcolor");
-    dom.style.color = window.ue.queryCommandValue("forecolor");
-    dom.style.textDecoration = window.ue.queryCommandState("underline") ? "underline" : window.ue.queryCommandState("strikethrough") ? "line-through" : "none";
-},
+};

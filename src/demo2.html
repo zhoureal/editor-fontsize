@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>fontSize</title>
+    <style>
+        #editor {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #666;
+            margin: 10px;
+        }
+        #setFontSize{
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="setFontSize" name="fontsize">
+        <option value="12px">12px</option>
+        <option value="16px">16px</option>
+        <option value="18px">18px</option>
+        <option value="24px">24px</option>
+        <option value="28px">28px</option>
+        <option value="30px">30px</option>
+    </select>
+    <div id="editor" contenteditable="true">
+        here is the content 
+        <span style="font-size:24px">字号24px</span>
+        <div style="font-size: 20px">这一段的内容是20px这一段的内容是20px这一段的内容是20px这一段的内容是20px这一段的内容是20px这一段的内容是20px这一段的内容是20px这一段的内容是20px</div>
+    </div>
+    <script type="text/javascript" src="./util.js"></script>
+    <script type="text/javascript" src="./fontsize_style.js"></script>
+    <script>
+        document.getElementById("setFontSize").addEventListener("change", function (e) {
+            setFontSize(e.target.value);
+        })
+    </script>
+</body>
+
+</html>
